@@ -1,0 +1,29 @@
+<h3>Welcome, {{user}}</h3>
+<button (click)="logout()">Logout</button>
+<h1>Tic-Tac-Toe</h1>
+<!-- Screen 1 -->
+<div *ngIf="!gameStarted" class="select-screen">
+  <h2>Choose Your Symbol</h2>
+  <div class="container">
+    <button (click)="chooseSymbol('X')">Play as X</button>
+  <button (click)="chooseSymbol('O')">Play as O</button>
+  </div>
+</div>
+<!-- Screen 2 -->
+<div *ngIf="gameStarted">
+  <div class="board">
+  <button
+    class="cell"
+    *ngFor="let cell of board; let i=index"
+    (click)="makeMove(i)"
+    [attr.aria-label]="'cell ' + (i+1)"
+    [disabled]="gameOver || cell !== ''"
+    [ngClass]="getCellClass"
+    >
+    {{cell}}
+  </button>
+</div>
+<p>{{status}}</p>
+<div class="reset-container">
+  <button (click)="reset()">Reset Game</button>
+</div>

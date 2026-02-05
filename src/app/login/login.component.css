@@ -1,0 +1,19 @@
+.login-box {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  width: 250px;
+  margin: 80px auto;
+}
+
+input {
+  padding: 10px;
+  font-size: 16px;
+}
+
+button {
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
