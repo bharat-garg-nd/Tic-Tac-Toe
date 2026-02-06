@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class AuthService {
-  private user: string | null = null;
+  private user: string | null;
   constructor() {
     this.user = localStorage.getItem('user');
   }

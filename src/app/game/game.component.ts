@@ -21,11 +21,25 @@ export class GameComponent implements OnInit{
   ) {}
 
   ngOnInit(): void {
-    if(!this.auth.isLoggedIn()) {
-      this.router.navigate(['/login']);
-      return;
-    }
     this.user = this.auth.getUser();
+
+    const params = new URLSearchParams(window.location.search);
+
+  const boardParam = params.get('board');
+  const humanParam = params.get('human');
+  if (boardParam && humanParam) {
+
+    this.board = boardParam.split(',');
+    this.playerSymbol = humanParam;
+    this.computerSymbol = this.playerSymbol === 'X' ? 'O' : 'X';
+
+    this.gameStarted = true;
+
+    this.restoreGameState();
+
+  } else {
+    this.gameStarted = false;
+    }
   }
   logout() {
     this.auth.logout();
@@ -59,7 +73,7 @@ board: string[] = Array(9).fill('');
     this.startGame();
   }
   updateURL() {
-    const url = `?board=${this.board.join(',')}&human=${this.playerSymbol}`;
+    const url = `/game?board=${this.board.join(',')}&human=${this.playerSymbol}`;
     window.history.pushState({}, '', url);
   }
   startGame() {
@@ -186,7 +200,7 @@ board: string[] = Array(9).fill('');
     this.board = Array(9).fill('');
     this.status = '';
 
-    window.history.pushState({}, '', '/');
+    window.history.pushState({}, '', '/game');
   }
   restoreGameState(){
     if(this.checkWinner(this.playerSymbol)){
